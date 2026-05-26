@@ -1,5 +1,8 @@
 name: RaspberryPi4 OpenWrt
 
+permissions:
+  contents: write
+
 on:
   workflow_dispatch:
   schedule:

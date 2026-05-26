@@ -1,5 +1,8 @@
 name: ARMv8 Mini OpenWrt
 
+permissions:
+  contents: write
+
 on:
   workflow_dispatch:
   schedule:

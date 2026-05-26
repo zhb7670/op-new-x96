@@ -1,5 +1,8 @@
 name: Delete Old Workflows
 
+permissions:
+  contents: write
+
 on:
   workflow_dispatch:
   schedule:
