@@ -37,11 +37,9 @@ function git_sparse_clone() {
   cd .. && rm -rf $repodir
 }
 
-# Docker 管理插件 - 使用 Lua 版替代 JS 版
-# lede 源码中的 dockerman 是 JS 版本，有 bug
-# 使用 lisaac/luci-app-dockerman 的 Lua 版本
-rm -rf feeds/luci/applications/luci-app-dockerman
-git clone --depth=1 https://github.com/lisaac/luci-app-dockerman package/luci-app-dockerman
+# Docker 管理插件
+# 使用官方 luci-app-docker (不依赖 luci-lib-docker)
+# 注意: 配置文件已改为 CONFIG_PACKAGE_luci-app-docker=y
 
 # 添加额外插件
 # git clone --depth=1 https://github.com/kongfl888/luci-app-adguardhome package/luci-app-adguardhome
