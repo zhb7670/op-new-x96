@@ -38,7 +38,10 @@ function git_sparse_clone() {
 }
 
 # Docker 管理插件 - 使用第三方 Lua 版 (非官方 JS 版)
-git clone --depth=1 https://github.com/lisaac/luci-app-dockerman package/luci-app-dockerman
+# lisaac/luci-app-dockerman 仓库结构是 applications/luci-app-dockerman/，需要提取子目录
+git clone --depth=1 https://github.com/lisaac/luci-app-dockerman package/luci-app-dockerman-tmp
+mv package/luci-app-dockerman-tmp/applications/luci-app-dockerman package/luci-app-dockerman
+rm -rf package/luci-app-dockerman-tmp
 
 # 添加额外插件
 # git clone --depth=1 https://github.com/kongfl888/luci-app-adguardhome package/luci-app-adguardhome
@@ -146,6 +149,11 @@ sed -i 's/"admin"/"admin", "services"/g; s/admin\//admin\/services\//g' package/
 sed -i 's/admin\//admin\/services\//g' package/luci-app-dockerman/luasrc/view/dockerman/*.htm
 sed -i 's|admin\\|admin\\/services\\|g' package/luci-app-dockerman/luasrc/view/dockerman/container.htm
 
+# 删除 feeds 中的 luci-app-docker (JS版)，确保使用本地克隆的 Lua 版
+rm -rf feeds/luci/applications/luci-app-docker
+# 也删除 feeds 中的 luci-app-dockerman，避免版本冲突
+rm -rf feeds/luci/applications/luci-app-dockerman
+
 # 调整 ZeroTier 到 服务 菜单
 # sed -i 's/vpn/services/g; s/VPN/Services/g' feeds/luci/applications/luci-app-zerotier/luasrc/controller/zerotier.lua
 # sed -i 's/vpn/services/g' feeds/luci/applications/luci-app-zerotier/luasrc/view/zerotier/zerotier_status.htm
@@ -157,8 +165,4 @@ sed -i 's|admin\\|admin\\/services\\|g' package/luci-app-dockerman/luasrc/view/d
 sed -i 's/^\s*list listen_https\s*/# &/g' ./package/network/services/uhttpd/files/uhttpd.config
 
 ./scripts/feeds update -a
-
-# 删除官方 feeds 中的 luci-app-docker (JS版)，使用本地克隆的 luci-app-dockerman (Lua版)
-rm -rf feeds/luci/applications/luci-app-docker
-
 ./scripts/feeds install -a
