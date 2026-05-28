@@ -37,9 +37,8 @@ function git_sparse_clone() {
   cd .. && rm -rf $repodir
 }
 
-# Docker 管理插件
-# 使用官方 luci-app-docker (不依赖 luci-lib-docker)
-# 注意: 配置文件已改为 CONFIG_PACKAGE_luci-app-docker=y
+# Docker 管理插件 - 使用第三方 Lua 版 (非官方 JS 版)
+git clone --depth=1 https://github.com/lisaac/luci-app-dockerman package/luci-app-dockerman
 
 # 添加额外插件
 # git clone --depth=1 https://github.com/kongfl888/luci-app-adguardhome package/luci-app-adguardhome
