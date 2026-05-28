@@ -42,6 +42,8 @@ function git_sparse_clone() {
 git clone --depth=1 https://github.com/lisaac/luci-app-dockerman package/luci-app-dockerman-tmp
 mv package/luci-app-dockerman-tmp/applications/luci-app-dockerman package/luci-app-dockerman
 rm -rf package/luci-app-dockerman-tmp
+# luci-app-dockerman 依赖 luci-lib-docker，需要单独克隆
+git clone --depth=1 https://github.com/lisaac/luci-lib-docker package/luci-lib-docker
 
 # 添加额外插件
 # git clone --depth=1 https://github.com/kongfl888/luci-app-adguardhome package/luci-app-adguardhome
