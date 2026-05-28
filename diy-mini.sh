@@ -157,4 +157,8 @@ sed -i 's|admin\\|admin\\/services\\|g' package/luci-app-dockerman/luasrc/view/d
 sed -i 's/^\s*list listen_https\s*/# &/g' ./package/network/services/uhttpd/files/uhttpd.config
 
 ./scripts/feeds update -a
+
+# 删除官方 feeds 中的 luci-app-docker (JS版)，使用本地克隆的 luci-app-dockerman (Lua版)
+rm -rf feeds/luci/applications/luci-app-docker
+
 ./scripts/feeds install -a
